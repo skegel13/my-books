@@ -14,7 +14,7 @@
     "next": "10.0.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-query": "^2.26.3"
+    "react-query": "^3.3.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.2.1",
