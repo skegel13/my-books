@@ -1,4 +1,4 @@
-import Axios, { AxiosError } from 'axios';
+import Axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { FormEvent, useState } from 'react';
 import Alert from '../components/alert';
@@ -9,10 +9,10 @@ import { HttpException } from '../exceptions/http-exception';
 const apiLogin = async (
   username: string,
   password: string
-): {
+): Promise<{
   jwt: string;
   user: Auth.User;
-} => {
+}> => {
   try {
     const { data } = await Axios.post(
       `${process.env.NEXT_PUBLIC_STRAPI_API}/auth/local`,
@@ -23,10 +23,10 @@ const apiLogin = async (
     );
 
     return data;
-  } catch ({ response }: AxiosError) {
+  } catch ({ response = {} }) {
     throw new HttpException(
       response?.data?.data?.[0]?.messages?.[0]?.message || 'Failed to login',
-      response.statusCode
+      response?.statusCode || 400
     );
   }
 };
@@ -45,7 +45,7 @@ function Login() {
     try {
       const response = await apiLogin(username, password);
       login(response.jwt, response.user);
-      router.push('/');
+      await router.push('/books');
     } catch (err) {
       setError(err.message);
     }

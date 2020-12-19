@@ -2,8 +2,8 @@ import React, { ReactNode } from 'react';
 import Head from 'next/head';
 
 interface Props {
-  children: ReactNode;
   title?: string;
+  children: ReactNode;
 }
 
 const siteTitle = 'My Books';
