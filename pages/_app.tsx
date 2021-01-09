@@ -4,7 +4,7 @@ import {QueryClient, QueryClientProvider} from 'react-query'
 import {AppProps} from 'next/app'
 import {ReactQueryDevtools} from 'react-query/devtools'
 
-function App({Component, pageProps}: AppProps) {
+function MyApp({Component, pageProps}: AppProps) {
   const queryClient = new QueryClient()
 
   return (
@@ -17,4 +17,4 @@ function App({Component, pageProps}: AppProps) {
   )
 }
 
-export default App
+export default MyApp

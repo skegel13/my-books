@@ -4,73 +4,56 @@ import React, {
   useContext,
   useEffect,
   useState,
-} from 'react';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
+} from 'react'
+import {destroyCookie, setCookie} from 'nookies'
+import {useRouter} from 'next/router'
+import {fetchAuthUser} from '../api/auth'
 
 interface IAuthContext {
-  user?: any;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  login?: (jwt: string, user: Auth.User) => void;
-  logout?: () => void;
-  [name: string]: any;
+  user?: any
+  isAuthenticated: boolean
+  isLoading: boolean
+  login?: (jwt: string, user: Auth.User) => void
+  logout?: () => void
+  [name: string]: any
 }
 
 const AuthContext = createContext<IAuthContext>({
   isAuthenticated: false,
   isLoading: false,
-});
+})
 
-const setCookies = (token, user) => {
-  const secure = location.protocol === 'https:';
-  const expires = new Date();
-  expires.setMinutes(expires.getMinutes() + 30);
-
-  Cookies.set('token', token, {
-    expires,
-    secure,
-    sameSite: 'strict',
-  });
-
-  Cookies.set('user', user, {
-    expires,
-    secure,
-    sameSite: 'strict',
-  });
-};
-
-export const AuthProvider = ({ children }: ComponentProps<any>) => {
-  const [user, setUser] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-  const router = useRouter();
+export const AuthProvider = ({children}: ComponentProps<any>) => {
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
-    function loadUserFromCookie() {
-      try {
-        const user = JSON.parse(Cookies.get('user'));
-        setUser(user);
-        setLoading(false);
-      } catch (err) {
-        // No user cookie
-        setLoading(false);
-      }
-    }
+    fetchAuthUser()
+      .then(data => {
+        setUser(data)
+        setIsLoading(false)
+      })
+      .catch(() => {
+        setUser(null)
+        setIsLoading(false)
+      })
+  }, [])
 
-    loadUserFromCookie();
-  }, []);
-
-  const login = (jwt: string, user: Auth.User) => {
-    setCookies(jwt, user);
-    setUser(user);
-  };
+  const login = (jwt: string, userData: Auth.User) => {
+    setCookie(null, 'jwt', jwt, {
+      maxAge: 30 * 60,
+      path: '/',
+    })
+    setUser(userData)
+  }
 
   const logout = async () => {
-    Cookies.remove('user');
-    Cookies.remove('token');
-    await router.push('/login');
-    setUser(null);
-  };
+    destroyCookie(null, 'jwt')
+
+    await router.push('/login')
+    setUser(null)
+  }
 
   return (
     <AuthContext.Provider
@@ -84,9 +67,9 @@ export const AuthProvider = ({ children }: ComponentProps<any>) => {
     >
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
 export default function useAuth() {
-  return useContext(AuthContext);
+  return useContext(AuthContext)
 }

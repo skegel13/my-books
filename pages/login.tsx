@@ -1,55 +1,29 @@
-import Axios from 'axios';
-import { useRouter } from 'next/router';
-import React, { FormEvent, useState } from 'react';
-import Alert from '../components/alert';
-import Layout from '../components/layout';
-import useAuth from '../context/auth-context';
-import { HttpException } from '../exceptions/http-exception';
-
-const apiLogin = async (
-  username: string,
-  password: string
-): Promise<{
-  jwt: string;
-  user: Auth.User;
-}> => {
-  try {
-    const { data } = await Axios.post(
-      `${process.env.NEXT_PUBLIC_STRAPI_API}/auth/local`,
-      {
-        identifier: username,
-        password,
-      }
-    );
-
-    return data;
-  } catch ({ response = {} }) {
-    throw new HttpException(
-      response?.data?.data?.[0]?.messages?.[0]?.message || 'Failed to login',
-      response?.statusCode || 400
-    );
-  }
-};
+import {useRouter} from 'next/router'
+import React, {FormEvent, useState} from 'react'
+import Alert from '../components/alert'
+import Layout from '../components/layout'
+import useAuth from '../context/auth-context'
+import {login as apiLogin} from '../api/auth'
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { login } = useAuth();
-  const router = useRouter();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const {login} = useAuth()
+  const router = useRouter()
 
   const loginUser = async (event: FormEvent) => {
-    setError('');
-    event.preventDefault();
+    setError('')
+    event.preventDefault()
 
     try {
-      const response = await apiLogin(username, password);
-      login(response.jwt, response.user);
-      await router.push('/books');
+      const data = await apiLogin(username, password)
+      login(data.jwt, data.user)
+      await router.push('/books')
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     }
-  };
+  }
 
   return (
     <Layout title="Login">
@@ -88,7 +62,7 @@ function Login() {
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={e => setUsername(e.target.value)}
                   />
                 </div>
               </div>
@@ -107,7 +81,7 @@ function Login() {
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                   />
                 </div>
               </div>
@@ -125,7 +99,7 @@ function Login() {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
-export default Login;
+export default Login

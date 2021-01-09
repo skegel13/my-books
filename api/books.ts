@@ -1,9 +1,11 @@
 import Axios from 'axios'
-import Cookies from 'js-cookie'
+import {parseCookies} from 'nookies'
+
+const jwt = parseCookies().jwt
 
 const client = Axios.create({
   headers: {
-    Authorization: `Bearer ${Cookies.get('token')}`,
+    Authorization: `Bearer ${jwt}`,
   },
 })
 

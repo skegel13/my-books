@@ -8,6 +8,7 @@ import Error from 'next/error'
 import {AxiosError} from 'axios'
 import Modal from 'react-modal'
 import BookForm from '../components/book-form'
+import {AuthRoute} from '../components/auth-route'
 
 function Books() {
   const [isAddingBook, setIsAddingBook] = useState(false)
@@ -63,4 +64,4 @@ function Books() {
   )
 }
 
-export default Books
+export default AuthRoute(Books)
