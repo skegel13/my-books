@@ -1,14 +1,14 @@
-import React, { ReactNode } from 'react';
-import Head from 'next/head';
+import React, {ReactNode} from 'react'
+import Head from 'next/head'
 
 interface Props {
-  title?: string;
-  children: ReactNode;
+  title?: string
+  children: ReactNode
 }
 
-const siteTitle = 'My Books';
+const siteTitle = 'My Books'
 
-export default function Layout({ children, title = '' }: Props) {
+export default function Layout({children, title = ''}: Props) {
   return (
     <>
       <Head>
@@ -21,5 +21,5 @@ export default function Layout({ children, title = '' }: Props) {
 
       <main>{children}</main>
     </>
-  );
+  )
 }
