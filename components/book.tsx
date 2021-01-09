@@ -8,7 +8,7 @@ interface Props {
 
 function Book({ book }: Props) {
   return (
-    <div className="shadow-lg border-gray-300 border-2 rounded bg-gray-100 p-6">
+    <div className="p-6 bg-gray-100 rounded border-2 border-gray-300 shadow-lg">
       <h2>{book.title}</h2>
       <div className="py-2 space-x-4">
         <span className="text-blue-500" title={book.type}>
