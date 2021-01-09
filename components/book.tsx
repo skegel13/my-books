@@ -1,5 +1,6 @@
 import React from 'react';
 import Badge from './badge';
+import { capitalize } from '../helpers/helpers';
 
 interface Props {
   book: Model.Book;
@@ -35,8 +36,7 @@ function Book({ book }: Props) {
             </svg>
           )}
         </span>
-        {book.read && <Badge>Read</Badge>}
-        {book.own && <Badge>Own</Badge>}
+        {book.status && <Badge>{capitalize(book.status)}</Badge>}
       </div>
     </div>
   );

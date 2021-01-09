@@ -4,7 +4,6 @@ declare namespace Model {
     title: string;
     cover_image: string;
     type: 'Digital' | 'Audiobook';
-    read: boolean;
-    own: boolean;
+    status: 'want' | 'own' | 'reading' | 'read';
   }
 }
