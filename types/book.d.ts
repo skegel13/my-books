@@ -1,9 +1,12 @@
 declare namespace Model {
   interface Book {
-    id: number;
-    title: string;
-    cover_image: string;
-    type: 'Digital' | 'Audiobook';
-    status: 'want' | 'own' | 'reading' | 'read';
+    id: number
+    key: string
+    published: number
+    title: string
+    cover: string
+    author: string
+    type: 'Digital' | 'Audiobook'
+    status: 'want' | 'own' | 'reading' | 'read'
   }
 }

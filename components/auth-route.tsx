@@ -9,11 +9,8 @@ export function AuthRoute(Component) {
     const router = useRouter()
 
     useEffect(() => {
-      console.log(isLoading, isAuthenticated)
       if (!isLoading) {
-        console.log('Not loading...')
         if (!isAuthenticated) {
-          console.log('Not authenticated...')
           router.push('/login')
         }
 

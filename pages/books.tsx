@@ -9,10 +9,13 @@ import {AxiosError} from 'axios'
 import Modal from 'react-modal'
 import BookForm from '../components/book-form'
 import {AuthRoute} from '../components/auth-route'
+import BookLookup from '../components/form/book-lookup'
+import {BookResult} from '../api/open-library'
 
 function Books() {
   const [isAddingBook, setIsAddingBook] = useState(false)
   const {data, isError, isLoading, error} = useQuery('books', fetchBooks)
+  const [selectedBook, setSelectedBook] = useState<BookResult>(null)
 
   if (isError) {
     return (
@@ -31,13 +34,23 @@ function Books() {
     )
   }
 
+  function onSetBook(bookResult: BookResult) {
+    if (bookResult) {
+      setSelectedBook(bookResult)
+      setIsAddingBook(true)
+    } else {
+      setSelectedBook(null)
+      setIsAddingBook(false)
+    }
+  }
+
   return (
     <Layout title="Books">
       <Section className="py-4">
-        <div className="text-right">
-          <button type="button" onClick={() => setIsAddingBook(true)}>
-            + Add Book
-          </button>
+        <div className="flex justify-end">
+          <div className="w-96">
+            <BookLookup value={selectedBook} setValue={onSetBook} />
+          </div>
         </div>
         <ul className="grid grid-cols-4 gap-4 py-4">
           {data.map(book => (
@@ -49,14 +62,22 @@ function Books() {
         <Modal
           appElement={document.body}
           isOpen={isAddingBook}
-          className="overflow-hidden p-6 mx-auto max-w-2xl bg-gray-100 rounded border-2 border-gray-500 shadow-lg"
+          className="p-6 mx-auto max-w-2xl bg-white rounded border-2 border-gray-500 shadow-lg"
           overlayClassName="bg-gray-100 bg-opacity-75 inset-0 absolute flex items-center justify-center"
           closeTimeoutMS={500}
           onRequestClose={() => setIsAddingBook(false)}
+          onAfterClose={() => {
+            setSelectedBook(null)
+          }}
         >
-          <section>
+          <section className="bg-white">
             <header className="text-lg font-bold">Add Book</header>
-            <BookForm onSave={() => setIsAddingBook(false)} />
+            {selectedBook && (
+              <BookForm
+                book={selectedBook}
+                onSave={() => setIsAddingBook(false)}
+              />
+            )}
           </section>
         </Modal>
       </Section>
