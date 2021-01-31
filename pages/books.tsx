@@ -26,7 +26,7 @@ function Books() {
   const {data, isError, isLoading, error} = useQuery('books', fetchBooks)
 
   const [booksWanted, booksOwned, booksReading, booksRead] = useMemo(() => {
-    if (!data.length) {
+    if (!data?.length) {
       return [[], [], [], []]
     }
 
