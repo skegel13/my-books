@@ -52,7 +52,7 @@ function Books() {
             <BookLookup value={selectedBook} setValue={onSetBook} />
           </div>
         </div>
-        <ul className="grid grid-cols-4 gap-4 py-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-8 items-end py-4">
           {data.map(book => (
             <li key={book.id}>
               <Book book={book} />
