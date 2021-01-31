@@ -12,6 +12,7 @@ export function AuthRoute(Component) {
       if (!isLoading) {
         if (!isAuthenticated) {
           router.push('/login')
+          return null
         }
 
         setReady(true)
