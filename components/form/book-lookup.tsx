@@ -42,7 +42,7 @@ function BookLookup({value, setValue}: Props) {
           </div>
         </div>
       )}
-      placeholder="Search by title..."
+      placeholder="Search books by title..."
       onChange={setValue}
     />
   )

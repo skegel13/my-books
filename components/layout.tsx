@@ -1,5 +1,6 @@
 import React, {ReactNode} from 'react'
 import Head from 'next/head'
+import Header from './header'
 
 interface Props {
   title?: string
@@ -19,7 +20,10 @@ export default function Layout({children, title = ''}: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>{children}</main>
+      <main>
+        <Header />
+        {children}
+      </main>
     </>
   )
 }

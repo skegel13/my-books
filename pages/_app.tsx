@@ -3,6 +3,7 @@ import '../styles/globals.css'
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {AppProps} from 'next/app'
 import {ReactQueryDevtools} from 'react-query/devtools'
+import {BookProvider} from '../context/book-context'
 
 function MyApp({Component, pageProps}: AppProps) {
   const queryClient = new QueryClient()
@@ -10,7 +11,9 @@ function MyApp({Component, pageProps}: AppProps) {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <BookProvider value="">
+          <Component {...pageProps} />
+        </BookProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </AuthProvider>
