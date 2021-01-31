@@ -8,8 +8,8 @@ interface Props {
 
 function Book({book}: Props) {
   return (
-    <div className="bg-gray-300 rounded overflow-hidden border-gray-300 shadow-xl">
-      <div className="bg-cover bg-center w-full">
+    <div className="overflow-hidden font-medium tracking-tight bg-white rounded-md shadow-lg">
+      <div className="w-full bg-center bg-cover">
         <img
           className="w-full h-auto"
           alt={book.title}

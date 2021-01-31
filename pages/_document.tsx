@@ -13,7 +13,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         </Head>
-        <body>
+        <body className="bg-gradient-to-b from-gray-100 to-gray-300">
           <Main />
           <NextScript />
         </body>
