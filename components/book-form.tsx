@@ -35,7 +35,6 @@ function BookForm({book, onSave}: Props) {
   })
 
   async function onSubmit(data) {
-    console.log(data)
     try {
       mutation.mutate(data as Model.Book)
       reset()
