@@ -20,7 +20,7 @@ export default function Layout({children, title = ''}: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="grid h-full" style={{gridTemplateRows: 'auto 1fr'}}>
         <Header />
         {children}
       </main>

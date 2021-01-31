@@ -4,6 +4,7 @@ import Alert from '../components/alert'
 import Layout from '../components/layout'
 import useAuth from '../context/auth-context'
 import {login as apiLogin} from '../api/auth'
+import Button from '../components/form/button'
 
 function Login() {
   const [username, setUsername] = useState('')
@@ -27,14 +28,14 @@ function Login() {
 
   return (
     <Layout title="Login">
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+      <div className="flex flex-col justify-center px-4 h-full sm:px-6 lg:px-8">
+        <div className="-mt-32 sm:mx-auto sm:w-full sm:max-w-md">
+          <h2 className="text-3xl font-medium tracking-tight text-center text-gray-900">
+            Sign in to MyBooks
           </h2>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 flex flex-col gap-y-4">
+          <div className="flex flex-col gap-y-4 py-8 px-4 bg-white rounded-md shadow sm:rounded-lg sm:px-10">
             {error ? (
               <Alert type="error" toggle={() => setError('')}>
                 {error}
@@ -60,7 +61,7 @@ function Login() {
                     id="email"
                     type="email"
                     required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="block py-2 px-3 w-full placeholder-gray-400 rounded-md border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                   />
@@ -79,7 +80,7 @@ function Login() {
                     id="password"
                     type="password"
                     required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="block py-2 px-3 w-full placeholder-gray-400 rounded-md border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                   />
@@ -87,12 +88,9 @@ function Login() {
               </div>
 
               <div>
-                <button
-                  type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
+                <Button type="submit" className="w-full">
                   Sign in
-                </button>
+                </Button>
               </div>
             </form>
           </div>
