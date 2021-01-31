@@ -35,6 +35,7 @@ function BookForm({book, onSave}: Props) {
   })
 
   async function onSubmit(data) {
+    console.log(data)
     try {
       mutation.mutate(data as Model.Book)
       reset()
@@ -62,6 +63,7 @@ function BookForm({book, onSave}: Props) {
         />
 
         <input id="published" name="published" ref={register} type="hidden" />
+        <input id="cover" name="cover" ref={register} type="hidden" />
 
         <div className="flex items-center space-x-8">
           <div className="h-72 overflow-hidden rounded-xl shadow-lg">
