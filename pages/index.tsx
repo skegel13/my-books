@@ -16,7 +16,7 @@ export default function Home() {
 
       <Layout title="Home">
         <Section className="mt-48">
-          <h1 className="text-3xl font-medium tracking-tight text-center md:text-6xl">
+          <h1 className="font-serif text-3xl font-medium tracking-tight text-center md:text-6xl">
             Welcome to MyBooks
           </h1>
 
@@ -25,7 +25,7 @@ export default function Home() {
           </p>
 
           {isAuthenticated && (
-            <div className="text-center mt-12">
+            <div className="mt-12 text-center">
               <Button isLink href="/books">
                 Go to Bookshelf
               </Button>

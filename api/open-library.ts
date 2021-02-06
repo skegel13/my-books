@@ -20,7 +20,7 @@ const client = Axios.create({
 export async function search(query: string): Promise<SearchResults> {
   const {data} = await client.get('search.json', {
     params: {
-      title: query,
+      q: query,
       facet: false,
       _spellcheck_count: 0,
       limit: 20,

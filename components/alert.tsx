@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 interface Props {
-  type: 'error' | 'success';
-  toggle?: () => void;
-  children: any;
+  type: 'error' | 'success'
+  toggle?: () => void
+  children: any
 }
 
-function Alert({ type, toggle, children }) {
+function Alert({type, toggle, children}) {
   return (
     <div
       className={`rounded-md p-4 ${type == 'error' ? 'bg-red-50' : ''} ${
@@ -17,7 +17,7 @@ function Alert({ type, toggle, children }) {
         <div className="flex-shrink-0">
           {type == 'error' && (
             <svg
-              className="h-5 w-5 text-red-400"
+              className="w-5 h-5 text-red-400"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -32,7 +32,7 @@ function Alert({ type, toggle, children }) {
 
           {type == 'success' && (
             <svg
-              className="h-5 w-5 text-green-400"
+              className="w-5 h-5 text-green-400"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -53,7 +53,7 @@ function Alert({ type, toggle, children }) {
           {children}
         </div>
         {toggle ? (
-          <div className="ml-auto pl-3">
+          <div className="pl-3 ml-auto">
             <div className="-mx-1.5 -my-1.5">
               <button
                 className={`
@@ -72,7 +72,7 @@ function Alert({ type, toggle, children }) {
               >
                 <span className="sr-only">Dismiss</span>
                 <svg
-                  className="h-5 w-5"
+                  className="w-5 h-5"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -92,7 +92,7 @@ function Alert({ type, toggle, children }) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default Alert;
+export default Alert

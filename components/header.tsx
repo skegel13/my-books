@@ -10,12 +10,14 @@ function Header() {
   const [selectedBook, setSelectedBook] = useBook()
 
   return (
-    <header className="bg-white py-6 border-b border-gray-300">
-      <div className="container mx-auto px-4">
+    <header className="py-6 bg-white border-b border-gray-300">
+      <div className="container px-4 mx-auto">
         <div className="grid grid-cols-3 items-center">
           <Link href="/">
             <a>
-              <h1 className="text-lg font-medium tracking-tight">MyBooks</h1>
+              <h1 className="font-serif text-lg font-bold tracking-tight">
+                MyBooks
+              </h1>
             </a>
           </Link>
           <div className="text-center">

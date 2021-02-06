@@ -1,14 +1,140 @@
 import React from 'react'
 import Badge from './badge'
 import {capitalize} from '../helpers/helpers'
+import {
+  Menu,
+  MenuList,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  MenuPopover,
+  MenuLink,
+} from '@reach/menu-button'
+import {deleteBook, updateBookStatus} from '../api/books'
+import {useMutation, useQueryClient} from 'react-query'
+// import '@reach/menu-button/styles.css'
 
 interface Props {
   book: Model.Book
 }
 
+interface BookAction {
+  status: Model.Book['status']
+  text: string
+}
+
+const bookActions: BookAction[] = [
+  {
+    status: 'want',
+    text: 'Want',
+  },
+  {
+    status: 'own',
+    text: 'Own',
+  },
+  {
+    status: 'reading',
+    text: 'Reading',
+  },
+  {
+    status: 'read',
+    text: 'Read',
+  },
+]
+
+function fetchAvailableActions(status: Model.Book['status']) {
+  const actions = bookActions.filter(item => item.status !== status)
+  return actions
+}
+
 function Book({book}: Props) {
+  const queryClient = useQueryClient()
+  const actions = fetchAvailableActions(book.status)
+
+  const statusMutation = useMutation(
+    (data: {id: number; status: Model.Book['status']}) =>
+      updateBookStatus(data.id, data.status),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries('books')
+      },
+    },
+  )
+
+  const deleteMutation = useMutation((id: number) => deleteBook(id), {
+    onSuccess() {
+      queryClient.invalidateQueries('books')
+    },
+  })
+
+  function handleAction(action: BookAction) {
+    statusMutation.mutate({id: book.id, status: action.status})
+  }
+
+  function onDeleteBook() {
+    deleteMutation.mutate(book.id)
+  }
+
   return (
-    <div className="overflow-hidden font-medium tracking-tight bg-white rounded-md shadow-lg">
+    <div className="relative overflow-hidden font-medium tracking-tight bg-white rounded-md shadow-lg">
+      <div className="absolute top-2 right-2">
+        <Menu>
+          {({isExpanded}) => (
+            <>
+              <MenuButton
+                className={`flex items-center p-2 text-gray-800 bg-gray-100 rounded-full hover:bg-white hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500
+                ${isExpanded ? `opacity-100` : `opacity-70`}
+              `}
+              >
+                <>
+                  <span className="sr-only">Open options</span>
+                  {/*// <!-- Heroicon name: solid/dots-vertical -->*/}
+                  <svg
+                    className={`w-5 h-5 transform transition ${
+                      isExpanded ? `rotate-90 opacity-100` : ``
+                    }`}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                  </svg>
+                </>
+              </MenuButton>
+              <MenuList className="right-0 w-40 max-w-3xl py-2 mt-2 overflow-hidden text-sm bg-gray-800 border border-gray-200 rounded shadow-2xl text-gray-50 border-opacity-30">
+                <MenuItem
+                  className="px-6 py-2 pb-0 mb-1 text-xs font-medium tracking-tighter text-gray-100 uppercase opacity-70"
+                  onSelect={() => null}
+                >
+                  Status
+                </MenuItem>
+                {actions.map(action => (
+                  <MenuItem
+                    key={action.status}
+                    className="px-6 py-1 cursor-pointer hover:bg-blue-800"
+                    onSelect={() => handleAction(action)}
+                  >
+                    {action.text}
+                  </MenuItem>
+                ))}
+                <MenuItem
+                  className="px-6 py-2 pb-0 mb-1 text-xs font-medium tracking-tighter text-gray-100 uppercase border-t border-gray-600 opacity-70"
+                  onSelect={() => null}
+                >
+                  Actions
+                </MenuItem>
+                <MenuItem
+                  className="px-6 py-1 cursor-pointer hover:bg-blue-800"
+                  onSelect={() => onDeleteBook()}
+                >
+                  Delete
+                </MenuItem>
+              </MenuList>
+            </>
+          )}
+        </Menu>
+      </div>
       <div className="w-full bg-center bg-cover">
         <img
           className="w-full h-auto"

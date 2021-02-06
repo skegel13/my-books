@@ -1,4 +1,6 @@
 declare namespace Model {
+  type BookStatus = 'want' | 'own' | 'reading' | 'read'
+
   interface Book {
     id: number
     key: string
@@ -7,6 +9,6 @@ declare namespace Model {
     cover: string
     author: string
     type: 'Digital' | 'Audiobook'
-    status: 'want' | 'own' | 'reading' | 'read'
+    status: BookStatus
   }
 }

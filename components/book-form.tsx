@@ -65,7 +65,7 @@ function BookForm({book, onSave}: Props) {
         <input id="cover" name="cover" ref={register} type="hidden" />
 
         <div className="flex items-center space-x-8">
-          <div className="h-72 overflow-hidden rounded-xl shadow-lg">
+          <div className="overflow-hidden shadow-lg h-72 rounded-xl">
             <img
               className="object-contain w-full h-full"
               src={`http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
@@ -74,13 +74,13 @@ function BookForm({book, onSave}: Props) {
           </div>
 
           <div>
-            <h3 className="mt-2 text-gray-700 text-lg leading-snug font-semibold">
+            <h3 className="mt-2 text-lg font-semibold leading-snug text-gray-700">
               {book.title}
             </h3>
-            <h4 className="text-gray-500 leading-tight">
+            <h4 className="leading-tight text-gray-500">
               {book.author_name[0]}
             </h4>
-            <p className="text-sm text-gray-500 leading-tight">
+            <p className="text-sm leading-tight text-gray-500">
               {book.first_publish_year}
             </p>
             <div className="py-3">
