@@ -2,7 +2,7 @@ import React, {ComponentProps} from 'react'
 import Link from 'next/link'
 
 interface Props extends ComponentProps<any> {
-  className: string
+  className?: string
   isLink?: boolean
 }
 
