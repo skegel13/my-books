@@ -1,18 +1,9 @@
 import React from 'react'
 import Badge from './badge'
 import {capitalize} from '../helpers/helpers'
-import {
-  Menu,
-  MenuList,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  MenuPopover,
-  MenuLink,
-} from '@reach/menu-button'
+import {Menu, MenuList, MenuButton, MenuItem} from '@reach/menu-button'
 import {deleteBook, updateBookStatus} from '../api/books'
 import {useMutation, useQueryClient} from 'react-query'
-// import '@reach/menu-button/styles.css'
 
 interface Props {
   book: Model.Book
